@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --accent-color: #3498db;
+        --bg-color: #f5f5f5;
+        --card-color: #ffffff;
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: var(--bg-color);
+    }
+
+    .sidebar {
+        width: 70px;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: width 0.3s ease;
+        overflow: hidden;
+    }
+
+    .nav-top, .nav-bottom {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .sidebar a {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+        white-space: nowrap;
+        transition: background-color 0.2s;
+    }
+
+    .sidebar a:hover {
+        background-color: #34495e;
+    }
+
+    .main-content {
+        flex-grow: 1;
+        padding: 30px;
+        overflow-y: auto;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .toggle-buttons button {
+        background-color: var(--accent-color);
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        margin-left: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .dashboard-section {
+        margin-bottom: 40px;
+    }
+
+    .dashboard-view.card {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .dashboard-view.list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .item {
+        background: var(--card-color);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+    }
+
+    .item:hover {
+        transform: translateY(-5px);
+    }
+
+</style>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 style="margin-bottom: 10px;">Welcome, {{ user.username }}</h1>
+
+        <div class="section-header">
+            <h2>Global Dashboard</h2>
+            <div class="toggle-buttons">
+                <button onclick="setView('card')">🔲 Card View</button>
+                <button onclick="setView('list')">📋 List View</button>
+            </div>
+        </div>
+
+        <!-- Locations -->
+        <div class="dashboard-section">
+            <h3>📍 Locations Current Status</h3>
+            <div class="dashboard-view" id="locations">
+                <div class="item">🏭 Donut Factory - ✅ Operational</div>
+                <div class="item">🏠 House - ⚠️ Maintenance Required</div>
+                <div class="item">🦓 Zoo - ✅ Operational</div>
+            </div>
+        </div>
+
+        <!-- Open Maintenance -->
+        <div class="dashboard-section">
+            <h3>🛠️ Open Maintenance</h3>
+            <div class="dashboard-view" id="maintenance">
+                <div class="item">Unplanned Work Orders: 5</div>
+                <div class="item">Planned Maintenance: 3</div>
+                <div class="item">Work Requests: 4</div>
+                <div class="item">Assets with Unplanned Work Orders: 2</div>
+                <div class="item">Tasks Open: 3</div>
+                <div class="item">Tasks In Progress: 6</div>
+            </div>
+        </div>
+
+        <!-- Total Cost -->
+        <div class="dashboard-section">
+            <h3>💰 Total Cost Operations</h3>
+            <div class="dashboard-view" id="costs">
+                <div class="item">Operating Cost: ₹45,000</div>
+                <div class="item">Parts Cost: ₹15,000</div>
+                <div class="item">Labour Cost: ₹20,000</div>
+                <div class="item">Invoice Cost: ₹10,000</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function setView(mode) {
+        document.querySelectorAll('.dashboard-view').forEach(el => {
+            el.classList.remove('card', 'list');
+            el.classList.add(mode);
+        });
+    }
+
+    // Default to card view
+    setView('card');
+</script>
+
+{% endblock %}

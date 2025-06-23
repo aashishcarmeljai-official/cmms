@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CMMS{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="nav-top">
+            <a href="{{ url_for('dashboard') }}"><i>🌍</i><span> Global Dashboard</span></a>
+            <a href="#"><i>📊</i><span> Local Dashboard</span></a>
+            <a href="#"><i>📍</i><span> Locations</span></a>
+            <a href="#"><i>👥</i><span> Manage Users</span></a>
+            <a href="#"><i>📝</i><span> Submit Work Request</span></a>
+            <a href="{{ url_for('maps') }}"><i>🗺️</i><span> Maps</span></a>
+            <a href="#"><i>⚙️</i><span> Settings</span></a>
+        </div>
+        <div class="nav-bottom">
+            <a href="#"><i>🔔</i><span> Notifications</span></a>
+            <a href="#"><i>👤</i><span> Profile</span></a>
+            <a href="{{ url_for('logout') }}"><i>🚪</i><span> Logout</span></a>
+        </div>
+    </div>
+
+    <!-- Main Page Content -->
+    {% block content %}{% endblock %}
+</body>
+</html>
