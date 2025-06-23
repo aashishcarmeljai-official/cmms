@@ -62,6 +62,17 @@ def logout():
 def maps():
     return render_template('maps.html', user=current_user)
 
+@app.route("/db_init")
+def db_init():
+    # Optional security using a query param ?secret=yourkey
+    secret = request.args.get("secret")
+    if secret != "mysecretkey":  # <-- change this to a strong secret
+        return "⛔ Unauthorized", 401
+
+    with app.app_context():
+        db.create_all()
+    return "✅ Database tables created successfully!"
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
